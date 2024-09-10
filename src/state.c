@@ -322,11 +322,24 @@ game_state_t *load_board(FILE *fp) {
 */
 static void find_head(game_state_t *state, unsigned int snum) {
   // TODO: Implement this function.
+  unsigned int row = state->snakes[snum].tail_row;
+  unsigned int col = state->snakes[snum].tail_col;
+  char c = state->board[row][col];
+  while (!is_head(c)) {
+        row = get_next_row(row, c);
+        col = get_next_col(col, c);
+        c = state->board[row][col];
+  } 
+  state->snakes[snum].head_row = row;
+  state->snakes[snum].head_col = col;
   return;
 }
 
 /* Task 6.2 */
 game_state_t *initialize_snakes(game_state_t *state) {
   // TODO: Implement this function.
-  return NULL;
+  
+  state->snakes = ;
+  state->num_snakes = ;
+  return state;
 }
