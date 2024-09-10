@@ -44,12 +44,12 @@ int main(int argc, char *argv[]) {
   // Read board from file, or create default board
   if (in_filename != NULL) {
     // TODO: Load the board from in_filename
-    FILE* f = fopen(in_filename, "r+");
-    state = load_board(f);
+    FILE* f = fopen(in_filename, "r");
     // TODO: If the file doesn't exist, return -1
-    if (state == NULL) {
+    if (f == NULL) {
         return -1;
     }
+    state = load_board(f);
     // TODO: Then call initialize_snakes on the state you made
     initialize_snakes(state);
     // TODO: close file pointer
