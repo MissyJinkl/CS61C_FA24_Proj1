@@ -293,8 +293,17 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 /* Task 5.1 */
 char *read_line(FILE *fp) {
   // TODO: Implement this function.
-
-  return NULL;
+  char buffer[100];
+  if (fgets(buffer, 100, fp) == NULL) {
+    return NULL;
+  }
+  size_t length = strlen(buffer);
+  char* line = malloc(length+1);
+  if (line == NULL) {
+      return NULL;
+  }
+  strcpy(line, buffer);
+  return line;
 }
 
 /* Task 5.2 */
@@ -307,11 +316,25 @@ game_state_t *load_board(FILE *fp) {
 
   state->num_snakes = 0;
   state->snakes = NULL;
-  
+  state->board = NULL;
 
+  char* line;
+  unsigned int rows_allocated = 0;
+  unsigned int rows_count = 0;
+
+  while((line = read_line(fp)) != NULL){
+    if (rows_count >= rows_allocated){
+        rows_allocated = (rows_allocated == 0) ? 1 : rows_allocated * 2;
+        state->board = realloc(state->board, rows_allocated * sizeof(char*));
+        if(state->board == NULL){
+        return NULL;
+        }
+    }
+    state->board[rows_count++] = line;
+    state->num_rows = rows_count;
+  };
   return state;
 }
-
 /*
   Task 6.1
 
