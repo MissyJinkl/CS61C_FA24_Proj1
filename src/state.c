@@ -361,5 +361,30 @@ static void find_head(game_state_t *state, unsigned int snum) {
 /* Task 6.2 */
 game_state_t *initialize_snakes(game_state_t *state) {
   // TODO: Implement this function.
-  return NULL;
+  for (unsigned int i = 0; i < state->num_rows; i++) {
+      for (unsigned int j = 0; j < strlen(state->board[i]); j++){
+          if (is_tail(state->board[i][j])) {
+              ++(state->num_snakes);
+          }
+      }
+  }
+
+  state->snakes = malloc((state->num_snakes) * sizeof(snake_t));
+  unsigned int snake_counter = 0;
+
+  while(snake_counter < state->num_snakes) {
+       for (unsigned int i = 0; i < state->num_rows; i++) {
+           for (unsigned int j = 0; j < strlen(state->board[i]); j++) {
+               if (is_tail(state->board[i][j])) {
+                  state->snakes[snake_counter].tail_row = i;
+                  state->snakes[snake_counter].tail_col = j;
+
+               }
+           }
+       }
+       find_head(state, snake_counter);
+       ++snake_counter;
+  }
+  
+  return state;
 }
