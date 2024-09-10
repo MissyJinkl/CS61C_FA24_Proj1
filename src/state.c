@@ -309,9 +309,32 @@ char *read_line(FILE *fp) {
 /* Task 5.2 */
 game_state_t *load_board(FILE *fp) {
   // TODO: Implement this function.
-  return NULL;
-}
+  game_state_t *state = malloc(sizeof(game_state_t));
+  if (state == NULL){
+   return NULL;
+  }
 
+  state->num_snakes = 0;
+  state->snakes = NULL;
+  state->board = NULL;
+
+  char* line;
+  unsigned int rows_allocated = 0;
+  unsigned int rows_count = 0;
+
+  while((line = read_line(fp)) != NULL){
+    if (rows_count >= rows_allocated){
+        rows_allocated = (rows_allocated == 0) ? 1 : rows_allocated * 2;
+        state->board = realloc(state->board, rows_allocated * sizeof(char*));
+        if(state->board == NULL){
+        return NULL;
+        }
+    }
+    state->board[rows_count++] = line;
+    state->num_rows = rows_count;
+  };
+  return state;
+}
 /*
   Task 6.1
 
