@@ -44,8 +44,8 @@ int main(int argc, char *argv[]) {
   // Read board from file, or create default board
   if (in_filename != NULL) {
     // TODO: Load the board from in_filename
-    FILE* f = fopen(in_filename, "r");
     // TODO: If the file doesn't exist, return -1
+    FILE *f = fopen(in_filename, "r");
     if (f == NULL) {
         return -1;
     }
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
   // Write updated board to file or stdout
   if (out_filename != NULL) {
     // TODO: Save the board to out_filename
-    save_board(state, out_filename);
+      save_board(state, out_filename);
   } else {
     // TODO: Print the board to stdout
     print_board(state, stdout);

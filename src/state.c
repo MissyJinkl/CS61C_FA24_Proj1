@@ -153,7 +153,7 @@ static char body_to_tail(char c) {
     case '<': return 'a';
     case '>': return 'd';
   }
-  return '?';
+  return c;
 }
 
 /*
@@ -169,7 +169,7 @@ static char head_to_body(char c) {
     case 'D': return '>';
     case 'A': return '<';
   }
-  return '?';
+  return c;
 }
 
 /*
@@ -293,8 +293,8 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 /* Task 5.1 */
 char *read_line(FILE *fp) {
   // TODO: Implement this function.
-  char buffer[100];
-  if (fgets(buffer, 100, fp) == NULL) {
+  char buffer[1024];
+  if (fgets(buffer, 1024, fp) == NULL) {
     return NULL;
   }
   size_t length = strlen(buffer);
@@ -361,29 +361,28 @@ static void find_head(game_state_t *state, unsigned int snum) {
 /* Task 6.2 */
 game_state_t *initialize_snakes(game_state_t *state) {
   // TODO: Implement this function.
+  unsigned int snake_counter = 0;
   for (unsigned int i = 0; i < state->num_rows; i++) {
       for (unsigned int j = 0; j < strlen(state->board[i]); j++){
           if (is_tail(state->board[i][j])) {
-              ++(state->num_snakes);
+              snake_counter++;
           }
       }
   }
 
-  state->snakes = malloc((state->num_snakes) * sizeof(snake_t));
-  unsigned int snake_counter = 0;
-
-  while(snake_counter < state->num_snakes) {
-       for (unsigned int i = 0; i < state->num_rows; i++) {
-           for (unsigned int j = 0; j < strlen(state->board[i]); j++) {
-               if (is_tail(state->board[i][j])) {
-                  state->snakes[snake_counter].tail_row = i;
-                  state->snakes[snake_counter].tail_col = j;
-
-               }
-           }
-       }
-       find_head(state, snake_counter);
-       ++snake_counter;
+  state->snakes = malloc((snake_counter) * sizeof(snake_t));
+  state->num_snakes = snake_counter;
+  
+  unsigned int snake_index = 0;
+  for (unsigned int i = 0; i < state->num_rows; i++) {
+    for (unsigned int j = 0; j < strlen(state->board[i]); j++) {
+        if (is_tail(state->board[i][j])) {
+            state->snakes[snake_index].tail_row = i;
+            state->snakes[snake_index].tail_col = j;
+            find_head(state, snake_index);
+            snake_index++;
+        }
+    }
   }
   
   return state;
