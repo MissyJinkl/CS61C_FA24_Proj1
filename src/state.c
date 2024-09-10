@@ -211,7 +211,10 @@ static unsigned int get_next_col(unsigned int cur_col, char c) {
 */
 static char next_square(game_state_t *state, unsigned int snum) {
   // TODO: Implement this function.
-  return '?';
+  unsigned int row = get_next_row(state->snakes[snum].head_row, state->board[state->snakes[snum].head_row][state->snakes[snum].head_col]);
+  unsigned int col = get_next_col(state->snakes[snum].head_col, state->board[state->snakes[snum].head_row][state->snakes[snum].head_col]);
+  char c = get_board_at(state, row, col);
+  return c;
 }
 
 /*
