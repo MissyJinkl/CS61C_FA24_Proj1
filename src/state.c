@@ -293,13 +293,23 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 /* Task 5.1 */
 char *read_line(FILE *fp) {
   // TODO: Implement this function.
+
   return NULL;
 }
 
 /* Task 5.2 */
 game_state_t *load_board(FILE *fp) {
   // TODO: Implement this function.
-  return NULL;
+  game_state_t *state = malloc(sizeof(game_state_t));
+  if (state == NULL){
+   return NULL;
+  }
+
+  state->num_snakes = 0;
+  state->snakes = NULL;
+  
+
+  return state;
 }
 
 /*
