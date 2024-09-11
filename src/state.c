@@ -291,7 +291,7 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 }
 
 /* Task 5.1 */
-/* char *read_line(FILE *fp) {
+ char *read_line(FILE *fp) {
   // TODO: Implement this function.
   char* buffer = malloc(1024);
   if (fgets(buffer, 1024, fp) == NULL){
@@ -300,35 +300,51 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
   size_t length = 1024;
 
   while (strchr(buffer, '\n') == NULL){
-    length *= 4;
-    
-    char* buffer = malloc(length);
-    if (fgets(buffer, (int)length, fp) == NULL){
-    return NULL;
+    buffer = realloc(buffer, length * 2);
+    if (fgets(buffer + length, (int)(length + 1), fp) == NULL){
+        return NULL;
     }
+    length *= 2;
   }
 
   size_t size = strlen(buffer);
   char* line = malloc(size + 1);
+  if(line == NULL){
+      return NULL;
+  }
   strcpy(line, buffer);
   free(buffer);
-
+  printf("the line: %s\n", line);
   return line;
-}
-*/
+ }
+  
 
+/*
 char *read_line(FILE *fp){
-    char buffer[131072];
-    if(fgets(buffer, 131072, fp)==NULL){
+    char buffer[1024];
+    if(fgets(buffer, 1024, fp)==NULL){
         return NULL;}
-    size_t length = strlen(buffer);
-    char* line = malloc(length+1);
-    if(line ==NULL){
-      return NULL;}
-    strcpy(line, buffer);
-    return line;
+    if(strchr(buffer, '\n') != NULL){
+        size_t length = strlen(buffer);
+        char* line = malloc(length+1);
+        if(line ==NULL){
+          return NULL;}
+        strcpy(line, buffer);
+        return line;
+    }else{
 
-}
+    char new_buffer[131072];
+    if(fgets(new_buffer, 131072, fp)==NULL){
+        return NULL;}
+    size_t length = strlen(new_buffer);
+    char* line = malloc(length + 1);
+    if(line == NULL){
+        return NULL;}
+    strcpy(line, new_buffer);
+    return line;
+    }
+
+}*/
 
 /* Task 5.2 */
 game_state_t *load_board(FILE *fp) {
