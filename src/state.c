@@ -202,7 +202,7 @@ static unsigned int get_next_col(unsigned int cur_col, char c) {
   return cur_col;
 }
 
-/*
+/*i
   Task 4.2
 
   Helper function for update_state. Return the character in the cell the snake is moving into.
@@ -318,8 +318,8 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 */
 
 char *read_line(FILE *fp){
-    char buffer[1048576];
-    if(fgets(buffer, 1048676, fp)==NULL){
+    char buffer[131072];
+    if(fgets(buffer, 131072, fp)==NULL){
         return NULL;}
     size_t length = strlen(buffer);
     char* line = malloc(length+1);
