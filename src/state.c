@@ -295,6 +295,7 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
   // TODO: Implement this function.
   char* buffer = malloc(1024);
   if (fgets(buffer, 1024, fp) == NULL){
+    free(buffer);
     return NULL;
   }
   size_t length = 1024;
@@ -310,41 +311,9 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
   size_t size = strlen(buffer);
   buffer = realloc(buffer, size + 1);
 
-  /*char* line = malloc(size + 1);
-  if(line == NULL){
-      return NULL;
-  }
-  strcpy(line, buffer);
-  free(buffer);*/
   return buffer;
  }
   
-
-/*
-char *read_line(FILE *fp){
-    char buffer[1024];
-    if(fgets(buffer, 1024, fp)==NULL){
-        return NULL;}
-    if(strchr(buffer, '\n') != NULL){
-        size_t length = strlen(buffer);
-        char* line = malloc(length + 1);
-        if(line ==NULL){
-          return NULL;}
-        strcpy(line, buffer);
-        return line;
-    }else{
-        char new_buffer[131072];
-        if(fgets(new_buffer + 1023, 131072, fp)==NULL){
-            return NULL;}
-        size_t length = strlen(new_buffer);
-        char* line = malloc(length + 1);
-        if(line == NULL){
-            return NULL;}
-        strcpy(line, new_buffer);
-        return line;
-    }
-
-}*/
 
 /* Task 5.2 */
 game_state_t *load_board(FILE *fp) {
