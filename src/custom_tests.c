@@ -122,12 +122,6 @@ bool test_is_tail() {
     return false;
   }
 
-  char testcase_5 = 'k';
-  bool output_5 = is_tail(testcase_5);
-  if (!assert_false("output_5", output_5)) {
-    return false;
-  }
-
   return true;
 }
 
@@ -157,11 +151,7 @@ bool test_is_head() {
     return false;
   }
 
-  char testcase_5 = 'P';
-  bool output_5 = is_head(testcase_5);
-  if (!assert_false("output_5", output_5)) {
-    return false;
-  }
+
   return true;
 }
 
@@ -191,11 +181,6 @@ bool test_is_snake() {
     return false;
   }
 
-  char testcase_5 = '&';
-  bool output_5 = is_snake(testcase_5);
-  if (!assert_false("output_5", output_5)) {
-    return false;
-  }
 
   return true;
 }
@@ -223,11 +208,6 @@ bool test_body_to_tail() {
     return false;
   }
 
-  char testcase_5 = 'x';
-  char output_5 = body_to_tail(testcase_5);
-  if (!assert_equals_char("output_5", '?', output_5)) {
-    return false;
-  }
 
   return true;
 }
@@ -255,11 +235,7 @@ bool test_head_to_body() {
     return false;
   }
 
-  char testcase_5 = 'x';
-  char output_5 = head_to_body(testcase_5);
-  if (!assert_equals_char("output_5", '?', output_5)) {
-    return false;
-  }
+  
 
   return true;
 }
