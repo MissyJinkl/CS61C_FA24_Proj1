@@ -301,7 +301,7 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
 
   while (strchr(buffer, '\n') == NULL){
     buffer = realloc(buffer, length * 2);
-    if (fgets(buffer + length, (int)(length + 1), fp) == NULL){
+    if (fgets(buffer + length - 1, (int)(length + 1), fp) == NULL){
         return NULL;
     }
     length *= 2;
@@ -314,7 +314,6 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
   }
   strcpy(line, buffer);
   free(buffer);
-  printf("the line: %s\n", line);
   return line;
  }
   
@@ -326,22 +325,21 @@ char *read_line(FILE *fp){
         return NULL;}
     if(strchr(buffer, '\n') != NULL){
         size_t length = strlen(buffer);
-        char* line = malloc(length+1);
+        char* line = malloc(length + 1);
         if(line ==NULL){
           return NULL;}
         strcpy(line, buffer);
         return line;
     }else{
-
-    char new_buffer[131072];
-    if(fgets(new_buffer, 131072, fp)==NULL){
-        return NULL;}
-    size_t length = strlen(new_buffer);
-    char* line = malloc(length + 1);
-    if(line == NULL){
-        return NULL;}
-    strcpy(line, new_buffer);
-    return line;
+        char new_buffer[131072];
+        if(fgets(new_buffer + 1023, 131072, fp)==NULL){
+            return NULL;}
+        size_t length = strlen(new_buffer);
+        char* line = malloc(length + 1);
+        if(line == NULL){
+            return NULL;}
+        strcpy(line, new_buffer);
+        return line;
     }
 
 }*/
