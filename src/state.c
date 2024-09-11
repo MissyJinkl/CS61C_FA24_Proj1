@@ -308,13 +308,15 @@ void update_state(game_state_t *state, int (*add_food)(game_state_t *state)) {
   }
 
   size_t size = strlen(buffer);
-  char* line = malloc(size + 1);
+  buffer = realloc(buffer, size + 1);
+
+  /*char* line = malloc(size + 1);
   if(line == NULL){
       return NULL;
   }
   strcpy(line, buffer);
-  free(buffer);
-  return line;
+  free(buffer);*/
+  return buffer;
  }
   
 
